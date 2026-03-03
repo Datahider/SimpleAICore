@@ -39,18 +39,17 @@ class SimpleAIAgent {
     protected Tools $tools;
     protected ProviderInterface $provider;
 
-    protected function __construct(string $api_key, string $provider_name) {
-        $this->api_key = $api_key;
+    protected function __construct() {
         $this->tools = Tools::create();
-        $this->setProvider($provider_name);
     }
 
-    public static function build(string $api_key, string $provider_name) : static {
-        return new static($api_key, $provider_name);
+    public static function build() : static {
+        return new static();
     }
 
-    public function setProvider(string $provider_name) : static {
+    public function setProvider(string $provider_name, string $api_key) : static {
         $this->provider_name = $provider_name;
+        $this->api_key = $api_key;
         $this->provider = ProviderRegistry::create($provider_name);
         $this->model = null;
         return $this;
@@ -75,10 +74,13 @@ class SimpleAIAgent {
     
     protected function postQuery(Context $context) : Response {
 
+        if (empty($this->provider_name) || empty($this->api_key)) {
+            throw new \LogicException("Provider/api_key not set");
+        }
         if (empty($this->model)) {
             throw new \LogicException("Model is not set for provider {$this->provider_name}");
         }
-
+        
         $options = new AIOptions(
             api_key: $this->api_key,
             timeout: $this->timeout,

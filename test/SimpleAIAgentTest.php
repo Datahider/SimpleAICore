@@ -59,7 +59,8 @@ class SimpleAIAgentTest extends TestCase
         $user_id = 'test_user_' . uniqid();
         $dialog_id = 'test_dialog_' . uniqid();
 
-        $agent = SimpleAIAgent::build(self::$api_key, 'fake')
+        $agent = SimpleAIAgent::build()
+            ->setProvider('fake', 'not needed')
             ->setUserId($user_id)
             ->setDialogId($dialog_id)
             ->setPrompt('Отвечай коротко')
