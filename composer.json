@@ -1,0 +1,25 @@
+{
+    "name": "losthost/simple-ai-core",
+    "description": "A very simple to use but powerfull AI-agent",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "beta",
+    "authors": [
+        {
+            "name": "drweb",
+            "email": "pio@pio.su"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "losthost/db": "^3"
+    },
+    "autoload": {
+        "psr-4": {
+            "losthost\\SimpleAI\\": "src/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "11.5.44"
+    }
+}

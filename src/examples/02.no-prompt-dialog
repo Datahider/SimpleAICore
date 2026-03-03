@@ -1,0 +1,28 @@
+<?php
+
+use losthost\SimpleAI\SimpleAIAgent;
+use losthost\DB\DB;
+use losthost\SimpleAI\data\Context;
+
+require '../../vendor/autoload.php';
+require '../../etc/config.php'; // set $deepseek_api_key
+
+// SimpleAIAgent uses losthost\DB\DB to access it's database
+DB::connect(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PREFIX);
+
+$agent = SimpleAIAgent::build(OPENAI_API_KEY)
+        ->setUserId(1)
+        ->setTimeout(180);
+
+echo "Press <Enter> 3 times to send your message:\n";
+while (true) {
+    
+    $input = '';
+    echo "\n> ";
+    while (substr($input, -3) != "\n\n\n") {
+        $input .= readline(). "\n";
+    }
+    
+    echo "\033[1;34mthinking...\033[0m\n";
+    echo "\033[34m". $agent->ask($input, )->asString(). "\033[0m\n";
+}
