@@ -16,7 +16,7 @@ class ProviderRegistry {
             throw new \RuntimeException("Provider not registered: $name");
         }
 
-        $provider = (self::$factories[$name])($api_key, $timeout);
+        $provider = (self::$factories[$name])();
 
         if (!$provider instanceof ProviderInterface) {
             throw new \RuntimeException("Provider factory must return ProviderInterface: $name");
