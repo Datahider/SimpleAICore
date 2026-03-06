@@ -118,8 +118,10 @@ class SimpleAIAgent {
     protected function dispatchQuery(?string $query) : Context {
         if (empty($this->user_id)) {
             return $this->simpleQuery($query);
-        } else {
+        } elseif ($this->dialog_id != null) {
             return $this->contextQuery($query);
+        } else {
+            throw new \RuntimeException('You must setDialogId() if you setUserId()');
         }
     }
 
