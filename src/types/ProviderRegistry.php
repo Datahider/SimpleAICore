@@ -24,4 +24,9 @@ class ProviderRegistry {
 
         return $provider;
     }
+    
+    public static function getProviders() : array {
+        return array_keys(self::$factories);
+    }
+    
 }

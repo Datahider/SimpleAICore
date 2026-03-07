@@ -46,6 +46,12 @@ class SimpleAIAgentTest extends TestCase
         DB::query('TRUNCATE TABLE [sai_context]');
     }
     
+    public function testGetProviders(): void
+    {
+        $providers = SimpleAIAgent::getProviders();
+        $this->assertContains('fake', $providers);
+    }
+    
     public function testBuildMethod(): void
     {
         $agent = SimpleAIAgent::build(self::$api_key, 'fake')->setModel('x');

@@ -46,6 +46,10 @@ class SimpleAIAgent {
     public static function build() : static {
         return new static();
     }
+    
+    public static function getProviders() : array {
+        return ProviderRegistry::getProviders();
+    }
 
     public function setProvider(string $provider_name, string $api_key) : static {
         $this->provider_name = $provider_name;
